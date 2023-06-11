@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install apache2
+sudo apt-get -y update
+sudo apt-get -y install apache2
 sudo su -
 echo "Hello World from $(hostname -f)" > /var/www/html/index.html
 sudo systemctl start apache2
