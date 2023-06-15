@@ -1,4 +1,5 @@
 #!/bin/bash
+
 cp /etc/sysctl.conf /root/sysctl.conf_backup
 cat <<EOT> /etc/sysctl.conf
 vm.max_map_count=262144
@@ -13,6 +14,7 @@ sonarqube   -   nproc    409
 EOT
 sudo apt-get update -y
 sudo apt-get install openjdk-11-jdk -y
+sudo apt install default-jre -y
 sudo update-alternatives --config java
 java -version
 sudo apt update
