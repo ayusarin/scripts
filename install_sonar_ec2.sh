@@ -14,8 +14,8 @@ sonarqube   -   nproc    409
 EOT
 sudo apt-get update -y
 sudo apt-get install openjdk-11-jdk -y
-sudo apt install default-jre -y
 sudo update-alternatives --config java
+sudo apt install default-jre -y
 java -version
 sudo apt update
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
