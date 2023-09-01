@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      format json
+      path /var/log/containers/*.log
+      read_from_head true
+      tag kubernetes.*
+      <parse>
+        @type json
+        time_format %Y-%m-%dT%H:%M:%S.%N%z
+      </parse>
+    </source>
+    
+    <match kubernetes.**>
+      @type s3
+      aws_key_id YOUR_AWS_ACCESS_KEY_ID
+      aws_sec_key YOUR_AWS_SECRET_ACCESS_KEY
+      s3_bucket YOUR_S3_BUCKET_NAME
+      s3_region YOUR_S3_BUCKET_REGION
+      path logs/kubernetes/${tag}/%Y/%m/%d/
+      time_slice_format %Y%m%d%H
+      time_slice_wait 10m
+      buffer_path /var/log/fluentd-buffers/kubernetes
+      buffer_chunk_limit 256m
+      buffer_queue_limit 256
+      flush_interval 5s
+      rotate_wait 5s
+    </match>
